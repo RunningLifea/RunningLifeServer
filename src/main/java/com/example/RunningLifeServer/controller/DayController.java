@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -31,9 +32,15 @@ public class DayController {
         return dayService.find(name, date);
     }
 
+    @Transactional
     @PostMapping("/update")
-    public Optional<Day> update(@RequestBody Day old_day, @RequestBody Day new_day, @RequestParam String name) {
+    public Optional<Day> update(@RequestBody Map<String, Day> map, @RequestParam String name) {
+        Day old_day = map.get("old_day");
+        Day new_day = map.get("new_day");
+        new_day.setDate(old_day.getDate());
+
         old_day.setUser(new User(name));
+        new_day.setUser(new User(name));
         return dayService.update(old_day, new_day);
     }
 

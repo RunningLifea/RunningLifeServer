@@ -24,7 +24,7 @@ public class DayService {
     }
 
     private void checkValidation(Day day) {
-        dayRepository.findDayByDateAndUserNameAndStart(day.getUser().getName(), day.getDate(), day.getStart()).ifPresent(
+        dayRepository.findDayByDateAndUserNameAndStart(day.getUser().getName(), day.getDate(), day.getStart().toString(), day.getEnd().toString()).ifPresent(
                 m-> {
                     throw new IllegalStateException("existing schedule");
                 }
@@ -32,7 +32,8 @@ public class DayService {
     }
 
     public Optional<Day> findDayByDateAndUserNameAndStart(Day day) {
-        return dayRepository.findDayByDateAndUserNameAndStart(day.getUser().getName(), day.getDate(), day.getStart());
+        Optional<Day> result =  dayRepository.findDayByDateAndUserNameAndStart(day.getUser().getName(), day.getDate(), day.getStart().toString(),day.getEnd().toString());
+        return result;
     }
 
     public List<Day> find(String name, String date) {
@@ -41,9 +42,7 @@ public class DayService {
 
     public Optional<Day> update(Day old_day, Day new_day) {
         Day older_day = findDayByDateAndUserNameAndStart(old_day).get();
-        checkValidation(new_day);
         dayRepository.updateDay(older_day.getId(), new_day.getStart(), new_day.getEnd(), new_day.getLocation());
-
         return findDayByDateAndUserNameAndStart(new_day);
     }
 }
