@@ -10,6 +10,8 @@ import javax.persistence.Id;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
@@ -18,5 +20,9 @@ public class User {
     private String name;
     private int distance;
     private int time;
+
+    public User(String name) {
+        this.name = name;
+    }
 
 }

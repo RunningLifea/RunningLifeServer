@@ -16,10 +16,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public void signUp(User user) {
+    public User signUp(User user) {
         validateDuplicateMember(user);
         userRepository.save(user);
-
+        return user;
     }
 
     private void validateDuplicateMember(User user) {
