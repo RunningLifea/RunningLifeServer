@@ -1,6 +1,7 @@
 package com.example.RunningLifeServer.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,7 @@ public class Record {
     @GeneratedValue(strategy = GenerationType.IDENTITY) //DB 가 알아서 생성
     private Long id;
     private int distance;
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
     @ManyToOne

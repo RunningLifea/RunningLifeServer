@@ -24,6 +24,7 @@ public class DayController {
     public Day upload(@RequestBody Day day, @RequestParam String name) {
         User user = userService.findByName(name).get();
         day.setUser(user);
+        day.setComplete(false);
         return dayService.upload(day);
     }
 
@@ -42,6 +43,12 @@ public class DayController {
         old_day.setUser(new User(name));
         new_day.setUser(new User(name));
         return dayService.update(old_day, new_day);
+    }
+
+    @Transactional
+    @PostMapping("/complete")
+    public Day complete(@RequestBody Day day, @RequestParam String name) {
+        return dayService.complete(day, name);
     }
 
 

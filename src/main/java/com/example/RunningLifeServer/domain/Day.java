@@ -1,5 +1,6 @@
 package com.example.RunningLifeServer.domain;
 
+import com.example.RunningLifeServer.converter.BooleanToYNConverter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -29,10 +30,13 @@ public class Day {
     private LocalDate date;
     private String location;
     private int temperature;
+    @Convert(converter = BooleanToYNConverter.class)
+    private boolean complete;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "USER_ID")
     private User user;
+
 
 }

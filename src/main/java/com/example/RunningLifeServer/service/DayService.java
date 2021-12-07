@@ -45,4 +45,14 @@ public class DayService {
         dayRepository.updateDay(older_day.getId(), new_day.getStart(), new_day.getEnd(), new_day.getLocation());
         return findDayByDateAndUserNameAndStart(new_day);
     }
+
+    public Day complete(Day day, String name) {
+        Optional<Day> target = dayRepository.findDayByDateAndUserNameAndStart(name, day.getDate(), day.getStart().toString(), day.getEnd().toString());
+        Day new_day = target.get();
+        new_day.setComplete(true);
+
+        return dayRepository.save(new_day);
+    }
+
+
 }
