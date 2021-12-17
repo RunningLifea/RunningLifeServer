@@ -53,7 +53,7 @@ public class DayController {
 
     @GetMapping("/temperature")
     public int temperature(@RequestParam String datetime) {
-        int temp = (int) (Math.random() * (20 - 10) + 10);
+        int temp = (int) (Math.random() * (5 - (-5)) + 10);
 
         return temp;
     }
